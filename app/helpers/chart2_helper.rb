@@ -79,40 +79,16 @@ var myLineChart = new Chart(ctx, {
     return html + script
   end
 
-  def chart2_radar id=nil, size=nil
-    html = "<div style=\"width: #{size[:width]}px; height: #{size[:height]}px;\"><canvas id=\"myChart_radar_#{id}\" width=\"#{size[:width]}\" height=\"#{size[:height]}\"></canvas></div>".html_safe
+  def chart2_radar id=nil, size=nil, data=nil, options=nil
+    html = "<div style=\"width: 100%; height: 100%;\"><canvas id=\"myChart_radar_#{id}\" width=\"#{size[:width]}\" height=\"#{size[:height]}\"></canvas></div>".html_safe
     script = javascript_tag do
       <<-END.html_safe
 
       var ctx = document.getElementById("myChart_radar_#{id}");
 
-      var data = {
-          labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-          datasets: [
-              {
-                  label: "My First dataset",
-                  backgroundColor: "rgba(179,181,198,0.2)",
-                  borderColor: "rgba(179,181,198,1)",
-                  pointBackgroundColor: "rgba(179,181,198,1)",
-                  pointBorderColor: "#fff",
-                  pointHoverBackgroundColor: "#fff",
-                  pointHoverBorderColor: "rgba(179,181,198,1)",
-                  data: [65, 59, 90, 81, 56, 55, 40]
-              },
-              {
-                  label: "My Second dataset",
-                  backgroundColor: "rgba(255,99,132,0.2)",
-                  borderColor: "rgba(255,99,132,1)",
-                  pointBackgroundColor: "rgba(255,99,132,1)",
-                  pointBorderColor: "#fff",
-                  pointHoverBackgroundColor: "#fff",
-                  pointHoverBorderColor: "rgba(255,99,132,1)",
-                  data: [28, 48, 40, 19, 96, 27, 100]
-              }
-          ]
-      };
+      var data = #{raw data};
 
-      var options = {};
+      var options = #{options};
 
       var myRadarChart = new Chart(ctx, {
           type: 'radar',
